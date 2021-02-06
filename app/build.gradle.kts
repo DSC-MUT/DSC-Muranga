@@ -33,6 +33,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -43,7 +46,7 @@ dependencies {
     implementation(Libraries.materialComponents)
     implementation(Libraries.constraintLayout)
     //Ktx
-    implementation(Libraries.fragementKtx)
+    implementation(Libraries.fragmentKtx)
     implementation(Libraries.livedataKtx)
     implementation(Libraries.livedataKtx)
     implementation(Libraries.navigationKtx)
@@ -54,7 +57,7 @@ dependencies {
     implementation(Libraries.coroutinesCore)
     implementation(Libraries.coroutinesAndroid)
     //Firebase
-    implementation(Libraries.bomPlatform)
+    //implementation(Libraries.bomPlatform)
     implementation(Libraries.firebaseAnalytics)
     implementation(Libraries.firebaseAuth)
     implementation(Libraries.googleSignIn)

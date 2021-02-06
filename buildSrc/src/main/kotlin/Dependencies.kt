@@ -30,6 +30,10 @@ object Libraries {
         const val bomVersion = "26.4.0"
         const val playServicesVersion = "19.0.0"
         const val coroutinesFirebaseVersion = "1.1.1"
+        const val firestoreVersion = "22.0.2"
+        const val authVersion = "20.0.2"
+        const val storageVersion = "19.2.1"
+        const val analyticsVersion = "18.0.2"
     }
     const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
     const val coreKtx = "androidx.core:core-ktx:${Versions.coreKtxVersion}"
@@ -45,12 +49,12 @@ object Libraries {
     const val viewmodelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifcycleKtxVersion}"
     const val coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutinesVersion}"
     const val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutinesVersion}"
-    const val bomPlatform = "com.google.firebase:firebase-bom:${Versions.bomVersion}"
-    const val firebaseAnalytics = "com.google.firebase:firebase-analytics-ktx"
-    const val firebaseAuth = "com.google.firebase:firebase-auth-ktx"
+    //const val bomPlatform = "com.google.firebase:firebase-bom:${Versions.bomVersion}"
+    const val firebaseAnalytics = "com.google.firebase:firebase-analytics-ktx:${Versions.analyticsVersion}"
+    const val firebaseAuth = "com.google.firebase:firebase-auth-ktx:${Versions.authVersion}"
     const val googleSignIn = "com.google.android.gms:play-services-auth:${Versions.playServicesVersion}"
-    const val firestore = "com.google.firebase:firebase-firestore-ktx"
-    const val storage = "com.google.firebase:firebase-storage-ktx"
+    const val firestore = "com.google.firebase:firebase-firestore-ktx:${Versions.firestoreVersion}"
+    const val storage = "com.google.firebase:firebase-storage-ktx:${Versions.storageVersion}"
     const val coroutinesFirebase = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:${Versions.coroutinesFirebaseVersion}"
 }
 object TestLibraries {
@@ -62,7 +66,4 @@ object TestLibraries {
     const val junit = "junit:junit:${Versions.junitVersion}"
     const val testRunner = "androidx.test.ext:junit:${Versions.testRunnerVersion}"
     const val expresso = "androidx.test.espresso:espresso-core:${Versions.expressoVersion}"
-}
-object BuildModules {
-    const val App = ":app"
 }

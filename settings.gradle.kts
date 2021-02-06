@@ -1,2 +1,2 @@
-include(BuildModules.App)
+include(":app")
 rootProject.name = "Dsc Murang'a"
