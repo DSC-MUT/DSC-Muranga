@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "207115336346",
+    "project_id": "dsc-murang-a",
+    "storage_bucket": "dsc-murang-a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:207115336346:android:a88841bcde4975332efd23",
+        "android_client_info": {
+          "package_name": "tech.danielwaiguru.dscmuranga"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "207115336346-l2qg6qbd7hqi67kl8l9hlern2h38j1nr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "tech.danielwaiguru.dscmuranga",
+            "certificate_hash": "031c832060799d3bd89600511ddf1e692e5cb712"
+          }
+        },
+        {
+          "client_id": "207115336346-1mi205804dbte4ce22v86a8acacpc3fe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSvIPegxUC8f7dc6z8mkr73v1AfRIOTcw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "207115336346-1mi205804dbte4ce22v86a8acacpc3fe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
