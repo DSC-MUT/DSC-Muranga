@@ -5,12 +5,31 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.auth.register.SignUpFragment">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:src="@drawable/ic_bg_1"
+        android:scaleType="fitXY"
+        app:layout_constraintTop_toBottomOf="@id/subTitle"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@drawable/ic_wave"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/title_size"
-        android:layout_marginTop="@dimen/margin_top"
+        android:layout_marginTop="@dimen/margin_top_large"
         android:layout_marginBottom="@dimen/margin"
         android:layout_marginStart="@dimen/margin"
         android:layout_marginEnd="@dimen/margin"
@@ -45,7 +64,10 @@
         app:layout_constraintEnd_toEndOf="@id/subTitle"
         app:layout_constraintTop_toBottomOf="@id/subTitle"
         android:hint="@string/full_name"
-
+        app:boxCornerRadiusBottomEnd="@dimen/box_radius"
+        app:boxCornerRadiusBottomStart="@dimen/box_radius"
+        app:boxCornerRadiusTopEnd="@dimen/box_radius"
+        app:boxCornerRadiusTopStart="@dimen/box_radius"
         >
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etName"
@@ -64,6 +86,10 @@
         app:layout_constraintEnd_toEndOf="@id/nameLayout"
         app:layout_constraintTop_toBottomOf="@id/nameLayout"
         android:hint="@string/email_id"
+        app:boxCornerRadiusBottomEnd="@dimen/box_radius"
+        app:boxCornerRadiusBottomStart="@dimen/box_radius"
+        app:boxCornerRadiusTopEnd="@dimen/box_radius"
+        app:boxCornerRadiusTopStart="@dimen/box_radius"
         >
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etEmail"
@@ -83,6 +109,10 @@
         android:layout_margin="@dimen/margin"
         android:hint="@string/password"
         app:passwordToggleEnabled="true"
+        app:boxCornerRadiusBottomEnd="@dimen/box_radius"
+        app:boxCornerRadiusBottomStart="@dimen/box_radius"
+        app:boxCornerRadiusTopEnd="@dimen/box_radius"
+        app:boxCornerRadiusTopStart="@dimen/box_radius"
         >
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etPassword"
@@ -101,7 +131,11 @@
         app:layout_constraintEnd_toEndOf="@id/passwordLayout"
         app:layout_constraintTop_toBottomOf="@id/passwordLayout"
         android:hint="@string/re_enter_password"
-        app:passwordToggleEnabled="true" >
+        app:passwordToggleEnabled="true"
+        app:boxCornerRadiusBottomEnd="@dimen/box_radius"
+        app:boxCornerRadiusBottomStart="@dimen/box_radius"
+        app:boxCornerRadiusTopEnd="@dimen/box_radius"
+        app:boxCornerRadiusTopStart="@dimen/box_radius">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etCPassword"
             android:layout_width="match_parent"
@@ -120,6 +154,7 @@
         android:layout_marginStart="@dimen/margin"
         android:layout_marginEnd="@dimen/margin"
         android:layout_marginBottom="@dimen/margin"
+        app:backgroundTint="@color/purple_200"
         android:text="@string/create_account"
         android:textAllCaps="false"
         android:background="@drawable/rectangular_button"
