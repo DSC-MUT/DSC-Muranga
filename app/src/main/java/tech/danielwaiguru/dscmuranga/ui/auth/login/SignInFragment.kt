@@ -2,11 +2,17 @@ package tech.danielwaiguru.dscmuranga.ui.auth.login
 
 import android.graphics.Color
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import cn.pedant.SweetAlert.SweetAlertDialog
 import kotlinx.coroutines.flow.collect
 import org.koin.android.ext.android.inject
@@ -39,9 +45,11 @@ class SignInFragment : Fragment() {
             requireView().snackBar(it)
         }
         getUiState()
+        setSpannable()
     }
     private fun initializeDialog() {
         progressDialog = SweetAlertDialog(requireActivity(), SweetAlertDialog.PROGRESS_TYPE)
+        progressDialog.titleText = getString(R.string.authenticating)
         progressDialog.progressHelper?.barColor = Color.parseColor("#863B96")
         progressDialog.setCancelable(false)
     }
@@ -55,7 +63,7 @@ class SignInFragment : Fragment() {
     }
     private fun showPasswordError() {
         if (!credentialValidator.isPasswordValid()) {
-            binding.emailLayout.error = getString(R.string.password_error)
+            binding.passwordLayout.error = getString(R.string.password_error)
         }
     }
     private fun areInputsValid(): Boolean {
@@ -77,6 +85,25 @@ class SignInFragment : Fragment() {
                 }
             }
         }
+    }
+    private fun navToSignUp() {
+        findNavController().navigate(R.id.action_signInFragment_to_signUpFragment)
+    }
+    private fun setSpannable() {
+        val spanText = SpannableString(getString(R.string.new_member))
+        val clickable = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                navToSignUp()
+            }
+        }
+        spanText.setSpan(clickable,
+            17, spanText.length, SpannableString.SPAN_EXCLUSIVE_INCLUSIVE)
+        spanText.setSpan(
+            ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.linkColor)),
+            17, spanText.length, SpannableString.SPAN_EXCLUSIVE_INCLUSIVE
+        )
+        binding.navToSignUp.text = spanText
+        binding.navToSignUp.movementMethod = LinkMovementMethod.getInstance()
     }
     private fun initListeners() {
         with(binding) {
@@ -103,6 +130,7 @@ class SignInFragment : Fragment() {
                     }
                     is ResultWrapper.Success -> {
                         hideDialog()
+                        findNavController().navigate(R.id.action_signInFragment_to_homeFragment)
                     }
                     is ResultWrapper.Empty -> {
                         hideDialog()

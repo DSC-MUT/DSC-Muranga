@@ -1,11 +1,19 @@
 package tech.danielwaiguru.dscmuranga.ui.auth.register
 
+import android.graphics.Color
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import cn.pedant.SweetAlert.SweetAlertDialog
 import kotlinx.coroutines.flow.collect
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -23,6 +31,7 @@ class SignUpFragment : Fragment() {
     private val credentialValidator: CredentialValidator by inject()
     private val signUpViewModel: SignUpViewModel by viewModel()
     private val networkStatusChecker: NetworkStatusChecker by inject()
+    lateinit var progressDialog: SweetAlertDialog
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         _binding = FragmentSignUpBinding.inflate(inflater, container, false)
@@ -32,10 +41,18 @@ class SignUpFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initListeners()
+        initializeDialog()
         getUiMessage {
             requireView().snackBar(it)
         }
         getUiState()
+        setSpannable()
+    }
+    private fun initializeDialog() {
+        progressDialog = SweetAlertDialog(requireActivity(), SweetAlertDialog.PROGRESS_TYPE)
+        progressDialog.titleText = getString(R.string.creating_account)
+        progressDialog.progressHelper?.barColor = Color.parseColor("#863B96")
+        progressDialog.setCancelable(false)
     }
     private fun setCredentials(
         fullName: String, email: String, password: String, cPassword: String) {
@@ -86,6 +103,23 @@ class SignUpFragment : Fragment() {
             }
         }
     }
+    private fun navToSignIn() {
+        findNavController().navigate(R.id.action_signUpFragment_to_signInFragment)
+    }
+    private fun setSpannable() {
+        val spanText = SpannableString(getString(R.string.registered))
+        val clickable = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                navToSignIn()
+            }
+        }
+        spanText.setSpan(clickable, 22, spanText.length, 0)
+        spanText.setSpan(
+            ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.linkColor)),
+        22, spanText.length, SpannableString.SPAN_EXCLUSIVE_INCLUSIVE)
+        binding.navToSignIn.text = spanText
+        binding.navToSignIn.movementMethod = LinkMovementMethod.getInstance()
+    }
     private fun initListeners() {
         with(binding) {
             registerButton.setOnClickListener { userSignUp() }
@@ -98,21 +132,33 @@ class SignUpFragment : Fragment() {
             }
         }
     }
+    private fun showDialog() {
+        if (!progressDialog.isShowing){
+            progressDialog.show()
+        }
+    }
+    private fun hideDialog() {
+        if (progressDialog.isShowing){
+            progressDialog.dismiss()
+        }
+    }
     private fun getUiState() {
         lifecycleScope.launchWhenStarted {
-            signUpViewModel.loginUiSate.collect {
-                when (it) {
+            signUpViewModel.loginUiSate.collect { state->
+                when (state) {
                     is ResultWrapper.Loading -> {
-
+                        showDialog()
                     }
                     is ResultWrapper.Failure -> {
-
+                        hideDialog()
+                        state.errorMessage?.let { requireView().snackBar(it) }
                     }
                     is ResultWrapper.Success -> {
-
+                        hideDialog()
+                        findNavController().navigate(R.id.action_signUpFragment_to_homeFragment)
                     }
                     is ResultWrapper.Empty -> {
-
+                        hideDialog()
                     }
                 }
             }

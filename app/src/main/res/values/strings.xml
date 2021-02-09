@@ -23,4 +23,6 @@
     <string name="network_error_message">Connect internet to proceed</string>
     <string name="sign_up_fragment">Sign Up</string>
     <string name="sign_in_fragment">Sign In</string>
+    <string name="authenticating">Authenticating…</string>
+    <string name="creating_account">Creating Account…</string>
 </resources>

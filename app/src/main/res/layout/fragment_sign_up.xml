@@ -167,6 +167,8 @@
         app:layout_constraintEnd_toEndOf="@id/registerButton"
         android:text="@string/registered"
         android:layout_marginTop="@dimen/margin_top"
+        android:textSize="@dimen/text_size"
+        android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/registerButton"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>
