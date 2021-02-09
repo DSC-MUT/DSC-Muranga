@@ -25,4 +25,5 @@
     <string name="sign_in_fragment">Sign In</string>
     <string name="authenticating">Authenticating…</string>
     <string name="creating_account">Creating Account…</string>
+    <string name="google_sign_in_success">Signed in successfully</string>
 </resources>
