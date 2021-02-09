@@ -9,6 +9,8 @@ import org.koin.dsl.module
 import tech.danielwaiguru.dscmuranga.repositories.AuthRepository
 import tech.danielwaiguru.dscmuranga.repositories.AuthRepositoryImpl
 import tech.danielwaiguru.dscmuranga.ui.auth.login.SignInViewModel
+import tech.danielwaiguru.dscmuranga.utils.common.CredentialValidator
+import tech.danielwaiguru.dscmuranga.utils.common.CredentialValidatorImpl
 
 private val firebaseModule: Module = module {
     single { Firebase.auth }
@@ -21,5 +23,7 @@ private val authRepositoryModule: Module = module {
 private val viewModelModules: Module = module {
     single { SignInViewModel(get()) }
 }
-
-val appModules = listOf(firebaseModule, authRepositoryModule, viewModelModules)
+private val validatorModule: Module = module {
+    single <CredentialValidator>{ CredentialValidatorImpl() }
+}
+val appModules = listOf(firebaseModule, authRepositoryModule, viewModelModules, validatorModule)
