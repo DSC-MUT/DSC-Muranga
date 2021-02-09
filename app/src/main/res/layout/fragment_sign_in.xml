@@ -28,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/title_size"
-        android:layout_marginTop="@dimen/margin_top_large"
+        android:layout_marginTop="@dimen/margin_top_extra_large"
         android:layout_marginBottom="@dimen/margin"
         android:layout_marginStart="@dimen/margin"
         android:layout_marginEnd="@dimen/margin"
@@ -118,6 +118,8 @@
         android:layout_marginEnd="@dimen/margin"
         android:layout_marginBottom="@dimen/margin"
         android:text="@string/proceed"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size"
         app:backgroundTint="@color/purple_200"
         android:textAllCaps="false"
         android:background="@drawable/rectangular_button"
@@ -125,47 +127,18 @@
         app:layout_constraintEnd_toEndOf="@id/passwordLayout"
         app:layout_constraintTop_toBottomOf="@id/forgotPassword"
         />
-    <ImageButton
+    <com.google.android.gms.common.SignInButton
         android:id="@+id/googleSocialAuth"
-        android:layout_width="@dimen/button_size"
-        android:layout_height="@dimen/button_size"
-        android:src="@drawable/ic_google"
-        android:elevation="@dimen/button_elevation"
-        android:background="@drawable/circle_button"
-        android:layout_marginEnd="@dimen/margin_top"
-        app:layout_constraintTop_toTopOf="@id/twitterSocialAuth"
-        app:layout_constraintBottom_toBottomOf="@id/twitterSocialAuth"
-        app:layout_constraintEnd_toStartOf="@id/twitterSocialAuth"
-        android:contentDescription="@string/google_signin" />
-    <ImageButton
-        android:background="@drawable/circle_button"
-        android:layout_width="@dimen/button_size"
-        android:layout_height="@dimen/button_size"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:id="@+id/twitterSocialAuth"
-        android:src="@drawable/ic_twitter"
-        android:elevation="@dimen/button_elevation"
-        android:layout_marginTop="@dimen/margin_top"
-        android:layout_marginEnd="@dimen/margin"
-        android:layout_marginStart="@dimen/margin"
-        android:layout_marginBottom="@dimen/margin"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        app:buttonSize="wide"
+        app:colorScheme="dark"
         app:layout_constraintTop_toBottomOf="@id/loginButton"
-        android:contentDescription="@string/twitter_signin"
+        app:layout_constraintStart_toStartOf="@id/loginButton"
+        app:layout_constraintEnd_toEndOf="@id/loginButton"
+        android:layout_margin="@dimen/margin_top"
         />
-    <ImageButton
-        android:id="@+id/facebookSocialAuth"
-        android:layout_width="@dimen/button_size"
-        android:layout_height="@dimen/button_size"
-        android:background="@drawable/circle_button"
-        android:src="@drawable/ic_facebook"
-        android:elevation="@dimen/button_elevation"
-        app:layout_constraintTop_toTopOf="@id/twitterSocialAuth"
-        app:layout_constraintBottom_toBottomOf="@id/twitterSocialAuth"
-        app:layout_constraintStart_toEndOf="@id/twitterSocialAuth"
-        android:contentDescription="@string/facebook_sign_in"
-        android:layout_marginStart="@dimen/margin_top"
-        />
+
     <TextView
         android:id="@+id/navToSignUp"
         android:layout_width="wrap_content"
@@ -176,6 +149,6 @@
         android:textSize="@dimen/text_size"
         app:layout_constraintStart_toStartOf="@id/loginButton"
         app:layout_constraintEnd_toEndOf="@id/loginButton"
-        app:layout_constraintTop_toBottomOf="@id/twitterSocialAuth"
+        app:layout_constraintTop_toBottomOf="@id/googleSocialAuth"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,4 +10,5 @@
     <dimen name="sub_title_size">20sp</dimen>
     <dimen name="margin_top_large">30dp</dimen>
     <dimen name="box_radius">10dp</dimen>
+    <dimen name="margin_top_extra_large">40dp</dimen>
 </resources>
