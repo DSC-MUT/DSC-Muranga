@@ -25,4 +25,13 @@ class SignInViewModel(private val authRepository: AuthRepository): ViewModel() {
             _registerUiState.value = ResultWrapper.Failure(e.message.toString())
         }
     }
+    fun firebaseAuthWithGoogle(token: String) {
+        viewModelScope.launch {
+            try {
+                authRepository.firebaseAuthWithGoogle(token)
+            } catch (e: Exception) {
+                _registerUiState.value = ResultWrapper.Failure(e.message.toString())
+            }
+        }
+    }
 }

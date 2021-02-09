@@ -1,5 +1,6 @@
 package tech.danielwaiguru.dscmuranga.ui.auth.login
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.SpannableString
@@ -14,6 +15,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import cn.pedant.SweetAlert.SweetAlertDialog
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import kotlinx.coroutines.flow.collect
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -21,8 +26,10 @@ import tech.danielwaiguru.dscmuranga.R
 import tech.danielwaiguru.dscmuranga.databinding.FragmentSignInBinding
 import tech.danielwaiguru.dscmuranga.models.ResultWrapper
 import tech.danielwaiguru.dscmuranga.network.NetworkStatusChecker
+import tech.danielwaiguru.dscmuranga.utils.Constants.RC_SIGN_IN
 import tech.danielwaiguru.dscmuranga.utils.common.CredentialValidator
 import tech.danielwaiguru.dscmuranga.utils.extensions.snackBar
+import tech.danielwaiguru.dscmuranga.utils.extensions.toast
 
 class SignInFragment : Fragment() {
     private var _binding: FragmentSignInBinding? = null
@@ -108,6 +115,10 @@ class SignInFragment : Fragment() {
     private fun initListeners() {
         with(binding) {
             loginButton.setOnClickListener { userSignIn() }
+            googleSocialAuth.setOnClickListener {
+                showDialog()
+                startGoogleSignInClient()
+            }
         }
     }
     private fun getUiMessage(result:(String) -> Unit) {
@@ -147,6 +158,34 @@ class SignInFragment : Fragment() {
     private fun hideDialog() {
         if (progressDialog.isShowing){
             progressDialog.dismiss()
+        }
+    }
+    private fun getSignInClient(): GoogleSignInClient? {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+        return GoogleSignIn.getClient(requireContext(), gso)
+    }
+    private fun startGoogleSignInClient() {
+        val signInIntent = getSignInClient()?.signInIntent
+        startActivityForResult(signInIntent, RC_SIGN_IN)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RC_SIGN_IN ) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                val account = task.getResult(ApiException::class.java)
+                account?.idToken?.let { signInViewModel.firebaseAuthWithGoogle(it) }
+                findNavController().navigate(R.id.action_signInFragment_to_homeFragment)
+                requireContext().toast(getString(R.string.google_sign_in_success))
+                hideDialog()
+            } catch (e: Exception) {
+                hideDialog()
+                requireContext().toast(e.message.toString())
+            }
         }
     }
     override fun onDestroyView() {

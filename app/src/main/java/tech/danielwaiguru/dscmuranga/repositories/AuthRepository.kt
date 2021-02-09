@@ -7,4 +7,5 @@ interface AuthRepository {
     suspend fun signUp(user: User, password: String): AuthResult
     suspend fun signIn(email: String, password: String): AuthResult
     fun createUser(user: User)
+    suspend fun firebaseAuthWithGoogle(token: String): AuthResult
 }

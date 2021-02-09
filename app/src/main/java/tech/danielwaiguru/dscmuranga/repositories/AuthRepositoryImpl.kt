@@ -2,6 +2,7 @@ package tech.danielwaiguru.dscmuranga.repositories
 
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 import tech.danielwaiguru.dscmuranga.models.User
@@ -25,5 +26,10 @@ class AuthRepositoryImpl(
             .addOnFailureListener {
 
             }
+    }
+
+    override suspend fun firebaseAuthWithGoogle(token: String): AuthResult {
+        val credential = GoogleAuthProvider.getCredential(token, null)
+        return auth.signInWithCredential(credential).await()
     }
 }
