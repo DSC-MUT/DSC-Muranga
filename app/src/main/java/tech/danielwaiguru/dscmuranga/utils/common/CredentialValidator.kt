@@ -6,4 +6,5 @@ interface CredentialValidator {
     fun isNameValid(): Boolean
     fun isPasswordValid(): Boolean
     fun isCPasswordValid(): Boolean
+    fun areCredentialsValid(): Boolean
 }

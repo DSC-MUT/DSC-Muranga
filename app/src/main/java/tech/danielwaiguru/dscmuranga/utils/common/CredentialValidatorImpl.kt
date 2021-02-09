@@ -26,4 +26,7 @@ class CredentialValidatorImpl: CredentialValidator {
     override fun isPasswordValid(): Boolean = password.length > 6
 
     override fun isCPasswordValid(): Boolean = cPassword == password
+    override fun areCredentialsValid(): Boolean {
+        return isNameValid() && isEmailValid() && isPasswordValid() && isCPasswordValid()
+    }
 }
