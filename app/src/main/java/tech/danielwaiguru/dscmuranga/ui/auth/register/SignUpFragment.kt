@@ -9,17 +9,26 @@ import androidx.fragment.app.viewModels
 import org.koin.android.ext.android.inject
 import tech.danielwaiguru.dscmuranga.R
 import tech.danielwaiguru.dscmuranga.databinding.FragmentSignUpBinding
+import tech.danielwaiguru.dscmuranga.models.User
+import tech.danielwaiguru.dscmuranga.network.NetworkStatusChecker
 import tech.danielwaiguru.dscmuranga.utils.common.CredentialValidator
+import tech.danielwaiguru.dscmuranga.utils.extensions.snackBar
 
 class SignUpFragment : Fragment() {
     private var _binding: FragmentSignUpBinding? = null
     private val binding get() = _binding!!
     private val credentialValidator: CredentialValidator by inject()
     private val signUpViewModel: SignUpViewModel by viewModels()
+    private val networkStatusChecker: NetworkStatusChecker by inject()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         _binding = FragmentSignUpBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initListeners()
     }
     private fun setCredentials(
         fullName: String, email: String, password: String, cPassword: String) {
@@ -53,7 +62,7 @@ class SignUpFragment : Fragment() {
         return credentialValidator.areCredentialsValid()
     }
     private fun hasNoConnection() {
-        
+        requireView().snackBar(getString(R.string.network_error_message))
     }
     private fun userSignUp() {
         with(binding) {
@@ -61,10 +70,18 @@ class SignUpFragment : Fragment() {
             val email = etEmail.text.toString()
             val password = etPassword.text.toString()
             val cPassword = etCPassword.text.toString()
+            val user = User(fullName, email)
             setCredentials(fullName, email, password, cPassword)
             if (areInputsValid()) {
-
+                networkStatusChecker.performIfConnected(::hasNoConnection) {
+                    signUpViewModel.signUp(user, password)
+                }
             }
+        }
+    }
+    private fun initListeners() {
+        with(binding) {
+            registerButton.setOnClickListener { userSignUp() }
         }
     }
     override fun onDestroyView() {
