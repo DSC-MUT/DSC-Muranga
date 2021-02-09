@@ -19,6 +19,11 @@ class CredentialValidatorImpl: CredentialValidator {
         this.cPassword = cPassword
     }
 
+    override fun setSignInCredentials(email: String, password: String) {
+        this.email = email
+        this.password = password
+    }
+
     override fun isEmailValid(): Boolean = Patterns.EMAIL_ADDRESS.matcher(email).matches()
 
     override fun isNameValid(): Boolean = fullName.length > 6
@@ -28,5 +33,9 @@ class CredentialValidatorImpl: CredentialValidator {
     override fun isCPasswordValid(): Boolean = cPassword == password
     override fun areCredentialsValid(): Boolean {
         return isNameValid() && isEmailValid() && isPasswordValid() && isCPasswordValid()
+    }
+
+    override fun areSignInCredentialsValid(): Boolean {
+        return isEmailValid() && isPasswordValid()
     }
 }

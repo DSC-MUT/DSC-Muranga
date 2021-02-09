@@ -5,6 +5,6 @@ import tech.danielwaiguru.dscmuranga.models.User
 
 interface AuthRepository {
     suspend fun signUp(user: User, password: String): AuthResult
-    fun signIn(email: String, password: String)
+    suspend fun signIn(email: String, password: String): AuthResult
     fun createUser(user: User)
 }

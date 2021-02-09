@@ -16,8 +16,8 @@ class AuthRepositoryImpl(
         }
     }
 
-    override fun signIn(email: String, password: String) {
-        TODO("Not yet implemented")
+    override suspend fun signIn(email: String, password: String): AuthResult {
+        return auth.signInWithEmailAndPassword(email, password).await()
     }
 
     override fun createUser(user: User) {

@@ -11,6 +11,7 @@ import tech.danielwaiguru.dscmuranga.network.NetworkStatusChecker
 import tech.danielwaiguru.dscmuranga.repositories.AuthRepository
 import tech.danielwaiguru.dscmuranga.repositories.AuthRepositoryImpl
 import tech.danielwaiguru.dscmuranga.ui.auth.login.SignInViewModel
+import tech.danielwaiguru.dscmuranga.ui.auth.register.SignUpViewModel
 import tech.danielwaiguru.dscmuranga.utils.common.CredentialValidator
 import tech.danielwaiguru.dscmuranga.utils.common.CredentialValidatorImpl
 
@@ -24,6 +25,7 @@ private val authRepositoryModule: Module = module {
 }
 private val viewModelModules: Module = module {
     single { SignInViewModel(get()) }
+    single { SignUpViewModel(get()) }
 }
 private val validatorModule: Module = module {
     single <CredentialValidator>{ CredentialValidatorImpl() }

@@ -6,9 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.flow.collect
 import org.koin.android.ext.android.inject
 import tech.danielwaiguru.dscmuranga.R
 import tech.danielwaiguru.dscmuranga.databinding.FragmentSignUpBinding
+import tech.danielwaiguru.dscmuranga.models.ResultWrapper
 import tech.danielwaiguru.dscmuranga.models.User
 import tech.danielwaiguru.dscmuranga.network.NetworkStatusChecker
 import tech.danielwaiguru.dscmuranga.utils.common.CredentialValidator
@@ -29,6 +32,10 @@ class SignUpFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initListeners()
+        getUiMessage {
+            requireView().snackBar(it)
+        }
+        getUiState()
     }
     private fun setCredentials(
         fullName: String, email: String, password: String, cPassword: String) {
@@ -82,6 +89,33 @@ class SignUpFragment : Fragment() {
     private fun initListeners() {
         with(binding) {
             registerButton.setOnClickListener { userSignUp() }
+        }
+    }
+    private fun getUiMessage(callback:(String)->Unit) {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            signUpViewModel.uiMessage.collect {
+                callback(it)
+            }
+        }
+    }
+    private fun getUiState() {
+        lifecycleScope.launchWhenStarted {
+            signUpViewModel.loginUiSate.collect {
+                when (it) {
+                    is ResultWrapper.Loading -> {
+
+                    }
+                    is ResultWrapper.Failure -> {
+
+                    }
+                    is ResultWrapper.Success -> {
+
+                    }
+                    is ResultWrapper.Empty -> {
+
+                    }
+                }
+            }
         }
     }
     override fun onDestroyView() {
