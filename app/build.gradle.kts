@@ -69,6 +69,9 @@ dependencies {
     //Koin DI
     implementation(Libraries.koinAndroid)
     implementation(Libraries.koinTest)
+    implementation(Libraries.koinViewModel)
+    //Sweet Alert Dialog
+    implementation(Libraries.sweetAlertDialog)
     //Unit Tests
     testImplementation(TestLibraries.junit)
     //Instrumentation Tests

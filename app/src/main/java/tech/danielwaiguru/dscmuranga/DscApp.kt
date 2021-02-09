@@ -4,7 +4,6 @@ import android.app.Application
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
-import org.koin.core.logger.Level
 import tech.danielwaiguru.dscmuranga.di.appModules
 
 class DscApp: Application() {
@@ -14,7 +13,7 @@ class DscApp: Application() {
     }
     private fun initKoin() {
         startKoin {
-            androidLogger(Level.DEBUG)
+            androidLogger()
             androidContext(this@DscApp)
             modules(appModules)
         }

@@ -1,14 +1,16 @@
 package tech.danielwaiguru.dscmuranga.ui.auth.login
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import cn.pedant.SweetAlert.SweetAlertDialog
 import kotlinx.coroutines.flow.collect
 import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.viewModel
 import tech.danielwaiguru.dscmuranga.R
 import tech.danielwaiguru.dscmuranga.databinding.FragmentSignInBinding
 import tech.danielwaiguru.dscmuranga.models.ResultWrapper
@@ -21,7 +23,8 @@ class SignInFragment : Fragment() {
     private val binding get() = _binding!!
     private val credentialValidator: CredentialValidator by inject()
     private val networkStatusChecker: NetworkStatusChecker by inject()
-    private val signInViewModel: SignInViewModel by viewModels()
+    private val signInViewModel: SignInViewModel by viewModel()
+    lateinit var progressDialog: SweetAlertDialog
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         _binding = FragmentSignInBinding.inflate(inflater, container, false)
@@ -30,11 +33,17 @@ class SignInFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initializeDialog()
         initListeners()
         getUiMessage {
             requireView().snackBar(it)
         }
         getUiState()
+    }
+    private fun initializeDialog() {
+        progressDialog = SweetAlertDialog(requireActivity(), SweetAlertDialog.PROGRESS_TYPE)
+        progressDialog.progressHelper?.barColor = Color.parseColor("#863B96")
+        progressDialog.setCancelable(false)
     }
     private fun setCredentials(email: String, password: String) {
         credentialValidator.setSignInCredentials(email, password)
@@ -86,19 +95,30 @@ class SignInFragment : Fragment() {
             signInViewModel.registerUiSate.collect { state ->
                 when(state) {
                     is ResultWrapper.Loading -> {
-
+                        showDialog()
                     }
                     is ResultWrapper.Failure -> {
-
+                        hideDialog()
+                        state.errorMessage?.let { requireView().snackBar(it) }
                     }
                     is ResultWrapper.Success -> {
-
+                        hideDialog()
                     }
                     is ResultWrapper.Empty -> {
-
+                        hideDialog()
                     }
                 }
             }
+        }
+    }
+    private fun showDialog() {
+        if (!progressDialog.isShowing){
+            progressDialog.show()
+        }
+    }
+    private fun hideDialog() {
+        if (progressDialog.isShowing){
+            progressDialog.dismiss()
         }
     }
     override fun onDestroyView() {

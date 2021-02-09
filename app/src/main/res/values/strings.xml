@@ -21,4 +21,6 @@
     <string name="password_error">Password should be at least 6 characters</string>
     <string name="password_match_error">Password do not match</string>
     <string name="network_error_message">Connect internet to proceed</string>
+    <string name="sign_up_fragment">Sign Up</string>
+    <string name="sign_in_fragment">Sign In</string>
 </resources>
