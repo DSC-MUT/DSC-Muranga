@@ -27,13 +27,14 @@ object Libraries {
         const val lifcycleKtxVersion = "2.2.0"
         const val navigationKtxVersion = "2.3.3"
         const val coroutinesVersion = "1.4.2"
-        const val bomVersion = "26.4.0"
         const val playServicesVersion = "19.0.0"
         const val coroutinesFirebaseVersion = "1.1.1"
         const val firestoreVersion = "22.0.2"
         const val authVersion = "20.0.2"
         const val storageVersion = "19.2.1"
         const val analyticsVersion = "18.0.2"
+        const val koinVersion = "2.2.2"
+        const val sweetAlertVersion = "1.6.2"
     }
     const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
     const val coreKtx = "androidx.core:core-ktx:${Versions.coreKtxVersion}"
@@ -56,6 +57,10 @@ object Libraries {
     const val firestore = "com.google.firebase:firebase-firestore-ktx:${Versions.firestoreVersion}"
     const val storage = "com.google.firebase:firebase-storage-ktx:${Versions.storageVersion}"
     const val coroutinesFirebase = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:${Versions.coroutinesFirebaseVersion}"
+    const val koinAndroid = "org.koin:koin-android:${Versions.koinVersion}"
+    const val koinTest = "org.koin:koin-test:${Versions.koinVersion}"
+    const val koinViewModel = "org.koin:koin-android-viewmodel:${Versions.koinVersion}"
+    const val sweetAlertDialog = "com.github.f0ris.sweetalert:library:${Versions.sweetAlertVersion}"
 }
 object TestLibraries {
     private object Versions {

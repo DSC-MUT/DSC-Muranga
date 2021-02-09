@@ -53,6 +53,7 @@ dependencies {
     implementation(Libraries.fragmentNav)
     implementation(Libraries.uiNav)
     implementation(Libraries.viewmodelKtx)
+    implementation(Libraries.lifecycleKtx)
     //Coroutines
     implementation(Libraries.coroutinesCore)
     implementation(Libraries.coroutinesAndroid)
@@ -65,6 +66,12 @@ dependencies {
     implementation(Libraries.storage)
     //Coroutines firebase
     implementation(Libraries.coroutinesFirebase)
+    //Koin DI
+    implementation(Libraries.koinAndroid)
+    implementation(Libraries.koinTest)
+    implementation(Libraries.koinViewModel)
+    //Sweet Alert Dialog
+    implementation(Libraries.sweetAlertDialog)
     //Unit Tests
     testImplementation(TestLibraries.junit)
     //Instrumentation Tests

@@ -1,7 +1,8 @@
-package tech.danielwaiguru.dscmuranga
+package tech.danielwaiguru.dscmuranga.ui.base
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import tech.danielwaiguru.dscmuranga.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

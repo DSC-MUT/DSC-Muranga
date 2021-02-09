@@ -1,3 +1,28 @@
 <resources>
     <string name="app_name">Dsc Murang\'a</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="create_account">Create Account</string>
+    <string name="sign_up_to_get_started">Sign up to get started</string>
+    <string name="full_name">Full Name</string>
+    <string name="email_id">Email ID</string>
+    <string name="password">Password</string>
+    <string name="re_enter_password">Re enter password</string>
+    <string name="registered">I\'m already a member, Sign In</string>
+    <string name="proceed">Proceed</string>
+    <string name="new_member">I\'m a new member. Sign Up</string>
+    <string name="google_signin">Google SignIn</string>
+    <string name="twitter_signin">Twitter SignIn</string>
+    <string name="facebook_sign_in">Facebook Sign In</string>
+    <string name="welcome_back">Welcome back!</string>
+    <string name="sign_in_to_continue">Sign in to continue</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="name_error">Name must be at least 6 characters</string>
+    <string name="email_error">Invalid email address</string>
+    <string name="password_error">Password should be at least 6 characters</string>
+    <string name="password_match_error">Password do not match</string>
+    <string name="network_error_message">Connect internet to proceed</string>
+    <string name="sign_up_fragment">Sign Up</string>
+    <string name="sign_in_fragment">Sign In</string>
+    <string name="authenticating">Authenticating…</string>
+    <string name="creating_account">Creating Account…</string>
 </resources>
