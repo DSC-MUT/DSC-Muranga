@@ -2,6 +2,7 @@ package tech.danielwaiguru.dscmuranga.repositories
 
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
@@ -32,4 +33,7 @@ class AuthRepositoryImpl(
         val credential = GoogleAuthProvider.getCredential(token, null)
         return auth.signInWithCredential(credential).await()
     }
+
+    override fun signOut() = auth.signOut()
+    override fun getCurrentUser(): FirebaseUser? = auth.currentUser
 }
