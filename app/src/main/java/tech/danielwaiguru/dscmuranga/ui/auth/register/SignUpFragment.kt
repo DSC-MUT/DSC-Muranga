@@ -32,7 +32,7 @@ class SignUpFragment : Fragment() {
     private val credentialValidator: CredentialValidator by inject()
     private val signUpViewModel: SignUpViewModel by viewModel()
     private val networkStatusChecker: NetworkStatusChecker by inject()
-    lateinit var progressDialog: SweetAlertDialog
+    private lateinit var progressDialog: SweetAlertDialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (activity as AppCompatActivity).supportActionBar?.hide()
