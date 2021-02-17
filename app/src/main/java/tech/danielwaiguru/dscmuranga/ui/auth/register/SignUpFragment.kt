@@ -6,11 +6,13 @@ import android.text.SpannableString
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -52,6 +54,7 @@ class SignUpFragment : Fragment() {
         }
         getUiState()
         setSpannable()
+        setTextWatchers()
     }
     private fun initializeDialog() {
         progressDialog = SweetAlertDialog(requireActivity(), SweetAlertDialog.PROGRESS_TYPE)
@@ -65,7 +68,7 @@ class SignUpFragment : Fragment() {
     }
     private fun showNameError() {
         if (!credentialValidator.isNameValid()) {
-            binding.etName.error = getString(R.string.name_error)
+            binding.nameLayout.error = getString(R.string.name_error)
         }
     }
     private fun showEmailError() {
@@ -165,6 +168,31 @@ class SignUpFragment : Fragment() {
                     is ResultWrapper.Empty -> {
                         hideDialog()
                     }
+                }
+            }
+        }
+    }
+    private fun setTextWatchers() {
+        with(binding) {
+            etName.doOnTextChanged { text, _, _, _ ->
+                if (text.toString().length >= 6) {
+                    nameLayout.error = null
+                }
+            }
+            etEmail.doOnTextChanged { text, _, _, _ ->
+                val validEmail = Patterns.EMAIL_ADDRESS.matcher(text.toString()).matches()
+                if (validEmail){
+                    emailLayout.error = null
+                }
+            }
+            etPassword.doOnTextChanged { text, _, _, _ ->
+                if (text.toString().length >= 6) {
+                    passwordLayout.error = null
+                }
+            }
+            etCPassword.doOnTextChanged { text, _, _, _ ->
+                if (text.toString() == etPassword.text.toString()) {
+                    cPasswordLayout.error = null
                 }
             }
         }
