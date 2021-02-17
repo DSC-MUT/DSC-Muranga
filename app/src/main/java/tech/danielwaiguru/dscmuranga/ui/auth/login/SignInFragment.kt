@@ -7,11 +7,13 @@ import android.text.SpannableString
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -38,7 +40,7 @@ class SignInFragment : Fragment() {
     private val credentialValidator: CredentialValidator by inject()
     private val networkStatusChecker: NetworkStatusChecker by inject()
     private val signInViewModel: SignInViewModel by viewModel()
-    lateinit var progressDialog: SweetAlertDialog
+    private lateinit var progressDialog: SweetAlertDialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (activity as AppCompatActivity).supportActionBar?.hide()
@@ -58,6 +60,7 @@ class SignInFragment : Fragment() {
         }
         getUiState()
         setSpannable()
+        initWatchers()
     }
     private fun initializeDialog() {
         progressDialog = SweetAlertDialog(requireActivity(), SweetAlertDialog.PROGRESS_TYPE)
@@ -190,6 +193,21 @@ class SignInFragment : Fragment() {
             } catch (e: Exception) {
                 hideDialog()
                 requireContext().toast(e.message.toString())
+            }
+        }
+    }
+    private fun initWatchers() {
+        with(binding) {
+            etEmail.doOnTextChanged { text, _, _, _ ->
+                val validEmail = Patterns.EMAIL_ADDRESS.matcher(text.toString()).matches()
+                if (validEmail) {
+                    emailLayout.error = null
+                }
+            }
+            etPassword.doOnTextChanged { text, _, _, _ ->
+                if (text.toString().length >= 6){
+                    passwordLayout.error = null
+                }
             }
         }
     }

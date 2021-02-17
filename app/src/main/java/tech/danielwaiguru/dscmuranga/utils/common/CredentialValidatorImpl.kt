@@ -26,9 +26,9 @@ class CredentialValidatorImpl: CredentialValidator {
 
     override fun isEmailValid(): Boolean = Patterns.EMAIL_ADDRESS.matcher(email).matches()
 
-    override fun isNameValid(): Boolean = fullName.length > 6
+    override fun isNameValid(): Boolean = fullName.length >= 6
 
-    override fun isPasswordValid(): Boolean = password.length > 6
+    override fun isPasswordValid(): Boolean = password.length >= 6
 
     override fun isCPasswordValid(): Boolean = cPassword == password
     override fun areCredentialsValid(): Boolean {
