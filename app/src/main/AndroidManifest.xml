@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DscMuranga"
         tools:replace="android:icon">
-        <activity android:name=".ui.base.MainActivity">
+        <activity android:name=".ui.base.MainActivity"
+            android:theme="@style/Theme.DscMuranga.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
