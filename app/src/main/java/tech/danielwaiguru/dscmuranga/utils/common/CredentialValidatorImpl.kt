@@ -3,10 +3,10 @@ package tech.danielwaiguru.dscmuranga.utils.common
 import android.util.Patterns
 
 class CredentialValidatorImpl: CredentialValidator {
-    lateinit var fullName: String
-    lateinit var email: String
+    private lateinit var fullName: String
+    private lateinit var email: String
     lateinit var password: String
-    lateinit var cPassword: String
+    private lateinit var cPassword: String
     override fun setCredentials(
         fullName: String,
         email: String,

@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -61,6 +62,13 @@ class SignInFragment : Fragment() {
         getUiState()
         setSpannable()
         initWatchers()
+    }
+    private fun getSession() {
+        if (signInViewModel.getCurrentUser() == null) {
+            findNavController().navigate(R.id.action_signInFragment_to_signUpFragment)
+        } else {
+            findNavController().popBackStack()
+        }
     }
     private fun initializeDialog() {
         progressDialog = SweetAlertDialog(requireActivity(), SweetAlertDialog.PROGRESS_TYPE)

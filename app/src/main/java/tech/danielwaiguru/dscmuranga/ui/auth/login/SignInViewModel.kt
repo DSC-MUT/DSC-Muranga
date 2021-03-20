@@ -34,4 +34,5 @@ class SignInViewModel(private val authRepository: AuthRepository): ViewModel() {
             }
         }
     }
+    fun getCurrentUser() = authRepository.getCurrentUser()
 }

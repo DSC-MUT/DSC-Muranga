@@ -13,7 +13,7 @@
         android:theme="@style/Theme.DscMuranga"
         tools:replace="android:icon">
         <activity android:name=".ui.base.MainActivity"
-            android:theme="@style/Theme.DscMuranga.NoActionBar">
+            android:theme="@style/Theme.DscMuranga.SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
